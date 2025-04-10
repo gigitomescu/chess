@@ -3,7 +3,9 @@ package com.gdt.chess.model;
 import java.util.Objects;
 
 import java.util.Objects;
+import lombok.Getter; 
 
+@Getter
 public class Position {
     private final int row;
     private final int col;

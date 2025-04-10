@@ -1,0 +1,13 @@
+<!-- chess-board.component.html -->
+<div class="chessboard">
+  <div *ngFor="let row of board; let i = index" class="board-row">
+    <div *ngFor="let square of row; let j = index" 
+         [ngClass]="getSquareClass(i, j)"
+         (click)="onSquareClick(i, j)" 
+         class="square">
+        <span *ngIf="square?.piece" [ngClass]="getPieceClass(square.piece)" class="piece">
+          {{ square.piece | chessPiece }}
+        </span>
+      </div>   
+  </div>
+</div>

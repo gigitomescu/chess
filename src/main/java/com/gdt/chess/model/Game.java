@@ -1,9 +1,12 @@
 package com.gdt.chess.model;
 import com.gdt.chess.model.enums.Color;
+import lombok.Getter; 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@Getter    
 public class Game {
     private String id;
     private Board board;

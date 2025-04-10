@@ -1,0 +1,68 @@
+.chessboard {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  width: 480px;
+  height: 480px;
+  border: 2px solid #333;
+}
+
+.square {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.square-light {
+  background-color: #f0d9b5;
+}
+
+.square-dark {
+  background-color: #b58863;
+}
+
+.square.selected {
+  box-shadow: inset 0 0 0 4px rgba(0, 100, 255, 0.8);
+}
+
+.piece {
+  font-size: 45px;
+  user-select: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+  text-rendering: geometricPrecision;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;  
+}
+
+.piece::before {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+/* Chess piece styles using Unicode characters */
+.white-pawn::before { content: "♙"; }
+.white-rook::before { content: "♖"; }
+.white-knight::before { content: "♘"; }
+.white-bishop::before { content: "♗"; }
+.white-queen::before { content: "♕"; }
+.white-king::before { content: "♔"; }
+
+.black-pawn::before { content: "♟"; }
+.black-rook::before { content: "♜"; }
+.black-knight::before { content: "♞"; }
+.black-bishop::before { content: "♝"; }
+.black-queen::before { content: "♛"; }
+.black-king::before { content: "♚"; }

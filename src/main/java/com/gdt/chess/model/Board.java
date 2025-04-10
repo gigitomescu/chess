@@ -4,7 +4,9 @@ import java.util.List;
 
 import com.gdt.chess.model.enums.Color;
 import com.gdt.chess.model.enums.PieceType;
+import lombok.Getter;
 
+@Getter
 public class Board {
     private Piece[][] squares;
     public static final int SIZE = 8;
