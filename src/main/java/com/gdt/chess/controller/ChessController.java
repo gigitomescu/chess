@@ -35,7 +35,12 @@ public class ChessController {
         Game game = chessService.createGame();
         return ResponseEntity.status(HttpStatus.CREATED).body(game);
     }
-
+    
+    @GetMapping("")
+    public ResponseEntity<String> base() {
+        return ResponseEntity.ok("Chess API is running.");
+    }
+    
     @GetMapping("/games/{gameId}")
     public ResponseEntity<Game> getGame(@PathVariable String gameId) {
         return chessService.getGame(gameId)

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError, of } from 'rxjs';
 import { catchError, tap, switchMap, map } from 'rxjs/operators';
+import { environment } from '../environments/environment';
 
 export interface ChessBoard {
   squares: any[][];
@@ -29,7 +30,7 @@ export interface MoveResult {
   providedIn: 'root'
 })
 export class ChessService {
-  private apiUrl = '/api/chess';
+  private apiUrl = environment.apiUrl;
   private currentGameId: string | null = null;
   
   constructor(private http: HttpClient) {
