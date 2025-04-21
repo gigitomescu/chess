@@ -1,0 +1,31 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.4)
+
+2025-04-21T13:15:37.725-07:00  INFO 9748 --- [chess] [           main] com.gdt.chess.ChessApplication           : Starting ChessApplication v2.0.0-SNAPSHOT using Java 17.0.9 with PID 9748 (C:\workspace\test\chess\target\chess-2.0.0-SNAPSHOT.jar started by gdt.adm in C:\workspace\test\chess)
+2025-04-21T13:15:37.737-07:00  INFO 9748 --- [chess] [           main] com.gdt.chess.ChessApplication           : The following 1 profile is active: "prod"
+2025-04-21T13:15:39.475-07:00  INFO 9748 --- [chess] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2025-04-21T13:15:39.509-07:00  INFO 9748 --- [chess] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 21 ms. Found 0 JDBC repository interfaces.
+2025-04-21T13:15:40.533-07:00  INFO 9748 --- [chess] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 5000 (http)
+2025-04-21T13:15:40.556-07:00  INFO 9748 --- [chess] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-04-21T13:15:40.556-07:00  INFO 9748 --- [chess] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-04-21T13:15:40.615-07:00  INFO 9748 --- [chess] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-04-21T13:15:40.618-07:00  INFO 9748 --- [chess] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2641 ms
+2025-04-21T13:15:41.269-07:00  INFO 9748 --- [chess] [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2025-04-21T13:15:41.318-07:00  INFO 9748 --- [chess] [           main] o.s.v.b.OptionalValidatorFactoryBean     : Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-04-21T13:15:41.968-07:00  INFO 9748 --- [chess] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-04-21T13:15:42.335-07:00  INFO 9748 --- [chess] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:chessdb user=SA
+2025-04-21T13:15:42.337-07:00  INFO 9748 --- [chess] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-04-21T13:15:42.492-07:00  INFO 9748 --- [chess] [           main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:chessdb'
+2025-04-21T13:15:42.603-07:00  INFO 9748 --- [chess] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 5000 (http) with context path '/'
+2025-04-21T13:15:42.661-07:00  INFO 9748 --- [chess] [           main] com.gdt.chess.ChessApplication           : Started ChessApplication in 6.013 seconds (process running for 6.862)
+2025-04-21T13:44:38.951-07:00  INFO 9748 --- [chess] [ionShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-04-21T13:44:38.976-07:00  INFO 9748 --- [chess] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-04-21T13:44:38.982-07:00  INFO 9748 --- [chess] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-04-21T13:44:38.987-07:00  INFO 9748 --- [chess] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

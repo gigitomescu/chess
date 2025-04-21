@@ -1,0 +1,195 @@
+openapi: 3.0.1
+info:
+  title: Chess API
+  version: 1.0.0
+  description: |
+    REST API for creating and managing chess games, making moves, retrieving move history, and validating possible moves.
+servers:
+  - url: "{baseUrl}/api/chess"
+    description: Base URL for all endpoints
+    variables:
+      baseUrl:
+        default: http://chess.eu-north-1.elasticbeanstalk.com
+paths:
+  /:
+    get:
+      summary: API base info
+      description: Returns a simple status message with API base URL.
+      responses:
+        '200':
+          description: API running message
+          content:
+            text/plain:
+              schema:
+                type: string
+  /games:
+    post:
+      summary: Create a new chess game
+      description: Initializes a new chess game and returns its details.
+      responses:
+        '201':
+          description: Game created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+  /games/{gameId}:
+    get:
+      summary: Get game by ID
+      description: Fetches a chess game by its unique identifier.
+      parameters:
+        - $ref: '#/components/parameters/gameId'
+      responses:
+        '200':
+          description: Game found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+        '404':
+          description: Game not found
+    delete:
+      summary: Delete game by ID
+      description: Deletes a chess game by its ID.
+      parameters:
+        - $ref: '#/components/parameters/gameId'
+      responses:
+        '204':
+          description: Game deleted successfully
+  /games/{gameId}/moves:
+    post:
+      summary: Make a move
+      description: Submits a move request for a given game.
+      parameters:
+        - $ref: '#/components/parameters/gameId'
+      requestBody:
+        description: Move request payload with "from" and "to" positions
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MoveRequest'
+      responses:
+        '200':
+          description: Move made successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Move'
+        '400':
+          description: Invalid move request or illegal move
+        '404':
+          description: Game not found
+    get:
+      summary: Get move history
+      description: Retrieves the list of moves made in a given game.
+      parameters:
+        - $ref: '#/components/parameters/gameId'
+      responses:
+        '200':
+          description: Moves retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Move'
+        '404':
+          description: Game not found
+  /games/{gameId}/valid-moves/{position}:
+    get:
+      summary: Get valid moves for a position
+      description: Returns all valid moves for a given position in a game.
+      parameters:
+        - $ref: '#/components/parameters/gameId'
+        - name: position
+          in: path
+          description: Chess notation of the position, e.g., "e2"
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Valid moves retrieved
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Position'
+        '400':
+          description: Invalid position or game not found
+
+components:
+  parameters:
+    gameId:
+      name: gameId
+      in: path
+      description: Unique identifier of the game
+      required: true
+      schema:
+        type: string
+  schemas:
+    Game:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique game identifier
+        status:
+          type: string
+          description: Current status (e.g., "IN_PROGRESS", "CHECKMATE", "DRAW")
+        currentPlayer:
+          type: string
+          description: Which player's turn it is ("WHITE" or "BLACK")
+        moves:
+          type: array
+          description: History of moves made in this game
+          items:
+            $ref: '#/components/schemas/Move'
+      required:
+        - id
+        - status
+        - currentPlayer
+        - moves
+    MoveRequest:
+      type: object
+      properties:
+        from:
+          type: string
+          description: Starting square in algebraic notation (e.g., "e2")
+        to:
+          type: string
+          description: Destination square in algebraic notation (e.g., "e4")
+      required:
+        - from
+        - to
+    Move:
+      type: object
+      properties:
+        from:
+          type: string
+          description: Starting square
+        to:
+          type: string
+          description: Destination square
+        piece:
+          type: string
+          description: Piece moved (e.g., "PAWN", "KING")
+        timestamp:
+          type: string
+          format: date-time
+          description: When the move was made
+      required:
+        - from
+        - to
+        - piece
+        - timestamp
+    Position:
+      type: object
+      properties:
+        notation:
+          type: string
+          description: Chess notation of the square (e.g., "e2")
+      required:
+        - notation
