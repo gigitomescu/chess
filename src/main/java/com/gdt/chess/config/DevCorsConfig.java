@@ -11,7 +11,7 @@ public class DevCorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/**")
-                .allowedOrigins("http://localhost:4200")
+        		.allowedOrigins("http://localhost:4200", "http://qqcoqadwin690:8080", "http://qqcoqadwin690:4200")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);
