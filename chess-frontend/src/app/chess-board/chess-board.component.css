@@ -7,6 +7,24 @@
   border: 2px solid #333;
 }
 
+/* Rotate the whole board 90deg anti-clockwise (counter-clockwise)
+   and keep piece glyphs upright by counter-rotating them. */
+.chessboard {
+  transform: rotate(-90deg);
+  transform-origin: center center;
+}
+
+/* Wrapper keeps labels upright while board is rotated */
+.board-wrapper {
+  position: relative;
+  /* make room for rank labels on the left */
+  width: 508px; /* 480 + 28 for labels */
+  height: 480px;
+  padding-left: 28px;
+  box-sizing: content-box;
+  overflow: visible;
+}
+
 .square {
   width: 60px;
   height: 60px;
@@ -44,6 +62,57 @@
   white-space: nowrap;
   overflow: hidden;
   position: relative;  
+}
+
+/* Counter-rotate the piece contents so glyphs remain upright */
+.piece {
+  transform: rotate(90deg);
+}
+
+/* File labels (a-h) at bottom */
+.files {
+  position: absolute;
+  bottom: -22px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 6px; /* align with squares' inner padding */
+  box-sizing: border-box;
+  z-index: 20;
+  pointer-events: none;
+}
+.files span {
+  font-size: 14px;
+  color: #111;
+  width: 60px;
+  text-align: center;
+  line-height: 1;
+}
+
+/* Rank labels (8-1) at left */
+.ranks {
+  position: absolute;
+  left: 0; /* place inside wrapper's left padding area */
+  top: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0; /* align with squares */
+  box-sizing: border-box;
+  z-index: 50;
+  pointer-events: none;
+}
+.ranks span {
+  font-size: 14px;
+  color: #111;
+  width: 20px;
+  text-align: center;
+  display: block;
+  height: 60px;
+  line-height: 60px;
 }
 
 .piece::before {

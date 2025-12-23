@@ -1,13 +1,23 @@
 <!-- chess-board.component.html -->
-<div class="chessboard">
-  <div *ngFor="let row of board; let i = index" class="board-row">
-    <div *ngFor="let square of row; let j = index" 
-         [ngClass]="getSquareClass(i, j)"
-         (click)="onSquareClick(i, j)" 
-         class="square">
-        <span *ngIf="square?.piece" [ngClass]="getPieceClass(square.piece)" class="piece">
-          {{ square.piece | chessPiece }}
-        </span>
-      </div>   
+<div class="board-wrapper">
+  <div class="chessboard">
+    <div *ngFor="let row of board; let i = index" class="board-row">
+      <div *ngFor="let square of row; let j = index" 
+           [ngClass]="getSquareClass(i, j)"
+           (click)="onSquareClick(i, j)" 
+           class="square">
+          <span *ngIf="square?.piece" [ngClass]="getPieceClass(square.piece)"></span>
+        </div>   
+    </div>
+  </div>
+
+  <!-- File labels (a-h) along the bottom -->
+  <div class="files" aria-hidden="true">
+    <span *ngFor="let f of ['a','b','c','d','e','f','g','h']">{{f}}</span>
+  </div>
+
+  <!-- Rank labels (8-1) along the left side -->
+  <div class="ranks" aria-hidden="true">
+    <span *ngFor="let r of [8,7,6,5,4,3,2,1]">{{r}}</span>
   </div>
 </div>
