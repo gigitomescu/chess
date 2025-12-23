@@ -5,9 +5,7 @@
          [ngClass]="getSquareClass(i, j)"
          (click)="onSquareClick(i, j)" 
          class="square">
-        <span *ngIf="square?.piece" [ngClass]="getPieceClass(square.piece)" class="piece">
-          {{ square.piece | chessPiece }}
-        </span>
+        <span *ngIf="square?.piece" [ngClass]="getPieceClass(square.piece)"></span>
       </div>   
   </div>
 </div>
