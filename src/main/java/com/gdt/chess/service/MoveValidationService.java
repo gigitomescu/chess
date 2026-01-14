@@ -49,37 +49,102 @@ public class MoveValidationService {
         }
     }
     
-    // These methods would contain detailed logic for each piece's movement
+    // Piece-specific movement validation methods
     private boolean isValidPawnMove(Board board, Position from, Position to, Piece pawn) {
-        // Simplified implementation
-        return true;
+        int rowDiff = to.getRow() - from.getRow();
+        int colDiff = Math.abs(to.getCol() - from.getCol());
+        
+        // Determine direction: WHITE moves up (negative row), BLACK moves down (positive row)
+        int direction = pawn.getColor() == com.gdt.chess.model.enums.Color.WHITE ? -1 : 1;
+        
+        Piece targetPiece = board.getPiece(to);
+        
+        // Forward move (no capture)
+        if (colDiff == 0 && targetPiece == null) {
+            // First move: can move 2 squares (WHITE from row 6, BLACK from row 1)
+            boolean isFirstMove = (pawn.getColor() == com.gdt.chess.model.enums.Color.WHITE && from.getRow() == 6) ||
+                                  (pawn.getColor() == com.gdt.chess.model.enums.Color.BLACK && from.getRow() == 1);
+            if (isFirstMove && rowDiff == 2 * direction) {
+                // Verify path is clear for 2-square move
+                Position intermediatePos = new Position(from.getRow() + direction, from.getCol());
+                return board.getPiece(intermediatePos) == null;
+            }
+            // Regular move: 1 square forward
+            return rowDiff == direction;
+        }
+        
+        // Diagonal capture: exactly 1 square diagonally
+        if (colDiff == 1 && rowDiff == direction && targetPiece != null) {
+            return true;
+        }
+        
+        return false;
     }
     
     private boolean isValidKnightMove(Position from, Position to) {
         int rowDiff = Math.abs(to.getRow() - from.getRow());
         int colDiff = Math.abs(to.getCol() - from.getCol());
+        // Knight moves in L-shape: 2 squares in one direction, 1 in perpendicular
         return (rowDiff == 2 && colDiff == 1) || (rowDiff == 1 && colDiff == 2);
     }
     
     private boolean isValidBishopMove(Board board, Position from, Position to) {
-        // Simplified implementation
-        return true;
+        int rowDiff = Math.abs(to.getRow() - from.getRow());
+        int colDiff = Math.abs(to.getCol() - from.getCol());
+        
+        // Bishop moves diagonally
+        if (rowDiff != colDiff || rowDiff == 0) {
+            return false;
+        }
+        
+        // Check path is clear
+        return isPathClear(board, from, to);
     }
     
     private boolean isValidRookMove(Board board, Position from, Position to) {
-        // Simplified implementation
-        return true;
+        int rowDiff = Math.abs(to.getRow() - from.getRow());
+        int colDiff = Math.abs(to.getCol() - from.getCol());
+        
+        // Rook moves horizontally or vertically
+        if ((rowDiff == 0 && colDiff > 0) || (colDiff == 0 && rowDiff > 0)) {
+            // Check path is clear
+            return isPathClear(board, from, to);
+        }
+        return false;
     }
     
     private boolean isValidQueenMove(Board board, Position from, Position to) {
-        // Simplified implementation
+        // Queen moves like rook (straight) or bishop (diagonal)
         return isValidRookMove(board, from, to) || isValidBishopMove(board, from, to);
     }
     
     private boolean isValidKingMove(Position from, Position to) {
         int rowDiff = Math.abs(to.getRow() - from.getRow());
         int colDiff = Math.abs(to.getCol() - from.getCol());
-        return rowDiff <= 1 && colDiff <= 1;
+        // King moves 1 square in any direction
+        return rowDiff <= 1 && colDiff <= 1 && (rowDiff > 0 || colDiff > 0);
+    }
+    
+    /**
+     * Helper method to check if path between two positions is clear (no pieces in the way).
+     * Used for rook, bishop, and queen moves.
+     */
+    private boolean isPathClear(Board board, Position from, Position to) {
+        int rowStep = Integer.compare(to.getRow(), from.getRow());
+        int colStep = Integer.compare(to.getCol(), from.getCol());
+        
+        int currentRow = from.getRow() + rowStep;
+        int currentCol = from.getCol() + colStep;
+        
+        while (currentRow != to.getRow() || currentCol != to.getCol()) {
+            Position intermediatePos = new Position(currentRow, currentCol);
+            if (board.getPiece(intermediatePos) != null) {
+                return false; // Path is blocked
+            }
+            currentRow += rowStep;
+            currentCol += colStep;
+        }
+        return true; // Path is clear
     }
 
     public List<Position> getValidMoves(Game game, Position position) {
